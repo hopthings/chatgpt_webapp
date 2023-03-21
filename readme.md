@@ -65,7 +65,7 @@ To deploy the application on a Unix server and make sure it loads on boot, follo
 
 2. Create a systemd service file:
 
-        sudo nano /etc/systemd/system/chatgpt-webapp.service
+        sudo nano /etc/systemd/system/chatgpt_webapp.service
 
 3. Add the following content to the service file, replacing your_api_key_here with your actual OpenAI API key and /path/to/chatgpt-webapp with the absolute path to the application directory:
 
@@ -76,8 +76,8 @@ To deploy the application on a Unix server and make sure it loads on boot, follo
         [Service]
         User=your_unix_username
         Environment=OPENAI_API_KEY="your_api_key_here"
-        WorkingDirectory=/path/to/chatgpt-webapp
-        ExecStart=/path/to/chatgpt-webapp/venv/bin/python app.py
+        WorkingDirectory=/path/to/chatgpt_webapp
+        ExecStart=/path/to/chatgpt_webapp/venv/bin/python app.py
         Restart=always
 
         [Install]
@@ -90,8 +90,8 @@ To deploy the application on a Unix server and make sure it loads on boot, follo
 
 6. Enable and start the service:
 
-        sudo systemctl enable chatgpt-webapp
-        sudo systemctl start chatgpt-webapp
+        sudo systemctl enable chatgpt_webapp
+        sudo systemctl start chatgpt_webapp
 
 
 The ChatGPT web application is now running as a service on your Unix server and will automatically start on boot.
