@@ -14,8 +14,8 @@ This is a simple web application that uses OpenAI's ChatGPT to generate response
 
 1. Clone the repository:
 
-        git clone https://github.com/hopthings/chatgpt-webapp.git
-        cd chatgpt-webapp
+        git clone https://github.com/hopthings/chatgpt_webapp.git
+        cd chatgpt_webapp
 
 
 2. Install the required packages:
