@@ -111,57 +111,68 @@
         <button type="submit">Send</button>
     </form>
     <script>
+        // Initialize an array to store the conversation history
         let conversationHistory = [];
-
+    
+        // Function to add a message to the chat container
         function addMessage(message, sender) {
             const chatContainer = document.getElementById("chat-container");
             const messageElement = document.createElement("div");
             messageElement.className = `message ${sender}-message`;
-
+    
             const messageText = document.createElement("div");
             messageText.className = "message-text";
             messageText.innerHTML = message.replace(/\n/g, "<br>");
-
+    
             messageElement.appendChild(messageText);
             chatContainer.appendChild(messageElement);
-
+    
+            // Scroll to the bottom of the chat container
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
-
+    
+        // Function to display the welcome message from the bot
         function displayWelcomeMessage() {
             const welcomeMessage = "Hello! I'm chatSEO. How can I help you today?";
             addMessage(welcomeMessage, "bot");
         }
-
+    
+        // Function to display a temporary "Generating response..." message from the bot
         function displayGeneratingMessage() {
             const generatingMessage = "Generating response...";
             addMessage(generatingMessage, "bot");
             return generatingMessage;
         }
-
+    
+        // Function to remove the "Generating response..." message from the chat container
         function removeGeneratingMessage(generatingMessage) {
             const chatContainer = document.getElementById("chat-container");
             chatContainer.removeChild(chatContainer.lastChild);
         }
-
+    
+        // Event listener for the form submission
         document.getElementById("chat-form").addEventListener("submit", function(event) {
             event.preventDefault();
-
+    
             const input = document.getElementById("message");
             const message = input.value.trim();
-
+    
+            // Do not proceed if the message is empty
             if (message.length === 0) {
                 return;
             }
-
+    
+            // Display the user's message and update the conversation history
             addMessage(message, "user");
             conversationHistory.push({ role: "user", content: message });
-
+    
             input.value = "";
             input.focus();
-
+    
+            // Display the "Generating response..." message
             const generatingMessage = displayGeneratingMessage();
-
+    
+            // Send a request to the server to generate a response
             fetch("/generate", {
                 method: "POST",
                 body: JSON.stringify({ message: message, history: conversationHistory }),
@@ -172,13 +183,16 @@
             })
             .then(response => response.json())
             .then(data => {
+                // Remove the "Generating response..." message and display the bot's response
                 removeGeneratingMessage(generatingMessage);
                 addMessage(data, "bot");
                 conversationHistory.push({ role: "assistant", content: data });
             });
         });
-
+    
+        // Display the welcome message when the page loads
         displayWelcomeMessage();
     </script>
+    
 </body>
 </html>

@@ -4,7 +4,7 @@ import openai
 from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request, session
 
-# load environment variables from .env file
+# Load environment variables from .env file
 load_dotenv()
 
 # Create a Flask application instance
